@@ -11,6 +11,17 @@ function newGame() {
     game.currentGame = [];
     game.playerMoves = [];
     game.turnNumber = 0;  // optional ---extra, because showTurns() already does that
+    for (let circle of document.getElementsByClassName("circle")) {
+        if (circle.getAttribute("data-listener") !== "true") {
+            circle.addEventListener("click", (e) => {
+                let move = e.target.getAttribute("id");
+                lightsOn(move);
+                game.playerMoves.push(move);
+                playerTurn();
+            });
+            circle.setAttribute("data-listener", "true");
+        }
+    }
     showScore();
     addTurn();
 }
